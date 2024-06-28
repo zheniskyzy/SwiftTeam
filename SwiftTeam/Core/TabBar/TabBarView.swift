@@ -10,8 +10,8 @@ import SwiftUI
 /// Tab"s
 enum Tab: String, CaseIterable {
     case home = "square.on.square.dashed"
-    case new = "magnifyingglass"
-    case map = "pencil.tip"
+    case search = "magnifyingglass"
+    case create = "pencil.tip"
     case notification = "app.badge"
     case profile = "person"
 }
@@ -22,11 +22,10 @@ struct AnimatedTab: Identifiable {
     var tab: Tab
     var isAnimating: Bool?
 }
-                        
+
 /// Tab Bar View
 struct TabBarView: View {
     @State private var selectedTab = 0
-  //  @State private var activeTab: Tab = .home
     @State private var allTabs: [AnimatedTab] = Tab.allCases.compactMap{ tab -> AnimatedTab? in
         return .init(tab: tab)
     }
@@ -37,48 +36,35 @@ struct TabBarView: View {
         ZStack(alignment: .bottom) {
             TabView(selection: $selectedTab) {
                 /// Tab Views
-           //     NavigationStack {
-                    FeedView()
+                FeedView()
                     .background(Color.theme.bgTabColor)
-             //   }
-                .onAppear { selectedTab = 0 }
-                .tag(0)
-                .setUpTab(.home)
+                    .onAppear { selectedTab = 0 }
+                    .tag(0)
+                    .setUpTab(.home)
                 
-                NavigationStack {
-             //       ExploreView()
-                    EmptyView()
+                    ExploreView()
                         .background(Color.theme.bgTabColor)
-                }
                 .onAppear { selectedTab = 1 }
                 .tag(1)
-                .setUpTab(.new)
+                .setUpTab(.search)
                 
-             //   NavigationStack {
-                    CreateDummyView(tabIndex: $selectedTab)
-                        .background(Color.theme.bgTabColor)
-             //   }
-                .onAppear { selectedTab = 2 }
-                .tag(2)
-                .setUpTab(.map)
+                CreateDummyView(tabIndex: $selectedTab)
+                    .background(Color.theme.bgTabColor)
+                    .onAppear { selectedTab = 2 }
+                    .tag(2)
+                    .setUpTab(.create)
                 
-             //   NavigationStack {
-             //       ActivityView()
-                EmptyView()
-                        .background(Color.theme.bgTabColor)
-           //     }
-                .onAppear { selectedTab = 3 }
-                .tag(3)
-                .setUpTab(.notification)
+                ActivityView()
+                    .background(Color.theme.bgTabColor)
+                    .onAppear { selectedTab = 3 }
+                    .tag(3)
+                    .setUpTab(.notification)
                 
-                NavigationStack {
-                    CurrentUserProfileView()
-                        .background(Color.theme.bgTabColor)
-                }
-                .onAppear { selectedTab = 4 }
-                .tag(4)
-                .setUpTab(.profile)
-                
+                CurrentUserProfileView()
+                    .background(Color.theme.bgTabColor)
+                    .onAppear { selectedTab = 4 }
+                    .tag(4)
+                    .setUpTab(.profile)
             }
             
             CustomTabBar()

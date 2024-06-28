@@ -6,19 +6,40 @@
 //
 
 import SwiftUI
+import SwiftfulRouting
 
 struct ContentView: View {
+    @Environment(\.router) var router
+    @State var showStartView: Bool = true
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            if showStartView {
+                StartView()
+                    .transition(.opacity) // Добавляет анимацию перехода (по желанию)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            withAnimation {
+                                showStartView = false
+                            }
+                        }
+                    }
+            } else {
+                Group {
+//                    if viewModel.userSession == nil {
+//                        HomeOnBoard()
+//                    } else {
+                       TabBarView()
+                            .accentColor(.primary)
+                 //   }
+                }
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    RouterView { _ in
+        ContentView()
+    }
 }

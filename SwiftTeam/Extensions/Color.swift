@@ -13,7 +13,7 @@ extension Color {
 
 struct ColorTheme {
     let primaryText = Color("PrimaryText")
-    let primaryBackground = Color("PrimaryBackground")
+    let viewBackground = Color("ViewBackground")
     
     let bgTabColor = Color("bgTabColor")
     let buttonsCreatePost = Color("buttonsCreatePost")
