@@ -83,7 +83,7 @@ struct FeedView: View {
         HStack(alignment: .center) {
             VStack(alignment: .leading, spacing: 3) {
                 Text("IOS Developer ll")
-                    .font(.system(size: 14, weight: .light, design: .default))
+                    .font(.system(size: 12, weight: .light, design: .default))
                     .foregroundStyle(.primary.opacity(0.5))
                 
                 Text("benjiloya")
