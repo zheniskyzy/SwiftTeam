@@ -7,9 +7,15 @@
 
 import SwiftUI
 import SwiftfulRouting
+import Firebase
 
 @main
 struct SwiftTeamApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             RouterView { _ in

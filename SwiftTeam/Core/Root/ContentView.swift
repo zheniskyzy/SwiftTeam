@@ -11,7 +11,8 @@ import SwiftfulRouting
 struct ContentView: View {
     @Environment(\.router) var router
     @State var showStartView: Bool = true
-    
+    /// User Log Status
+    @AppStorage("log_Status") private var logStatus: Bool = false
     var body: some View {
         VStack {
             if showStartView {
@@ -29,9 +30,17 @@ struct ContentView: View {
 //                    if viewModel.userSession == nil {
 //                        HomeOnBoard()
 //                    } else {
-                       TabBarView()
+                   //    TabBarView()
+                     //       .accentColor(.primary)
+//                    }
+                    
+                    if logStatus {
+                        TabBarView()
                             .accentColor(.primary)
-                 //   }
+                    } else {
+                        Login()
+                    }
+                        
                 }
             }
         }

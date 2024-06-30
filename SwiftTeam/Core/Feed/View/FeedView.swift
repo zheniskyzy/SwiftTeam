@@ -12,10 +12,6 @@ import SwiftfulUI
 struct FeedView: View {
     @Environment(\.router) var router
     
-  //  @State private var heroProduct: Product? = nil
-  //  @State private var currentUser: User? = nil
-  //  @State private var productRows: [ProductRow] = []
-    
     @State private var fullHeaderSize: CGSize = .zero
     @State private var scrollViewOffset: CGFloat = 0
     
@@ -62,8 +58,6 @@ struct FeedView: View {
                                 .blur(radius: 9, opaque: true)
                                 .background(Color.theme.primaryText.opacity(0.05))
                         }
-                     //   .background(.ultraThinMaterial.opacity(0.99))
-                     //   .brightness(-0.3)
                         .ignoresSafeArea()
                 }
             }

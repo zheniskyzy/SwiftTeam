@@ -19,6 +19,7 @@ struct ExploreView: View {
         ScrollView(.vertical) {
             LazyVStack(spacing: 15) {
                 DummyMessagesView()
+                    .shimmer(.init(tint: .gray.opacity(0.25), highlight: .primary.opacity(0.5), blur: 25))
             }
             .safeAreaPadding(15)
             .safeAreaInset(edge: .top, spacing: 0) {
@@ -28,7 +29,6 @@ struct ExploreView: View {
         }
         .scrollTargetBehavior(CustomScrollTargetBehaviour())
         .scrollIndicators(.hidden)
-//        .background(.gray.opacity(0.15))
         .background(Color.theme.bgTabColor)
         .contentMargins(.top, 190, for: .scrollIndicators)
     }
@@ -76,7 +76,6 @@ struct ExploreView: View {
                 .background {
                     RoundedRectangle(cornerRadius: 25 - (progress * 25)) // u can use without progress RoundedRectangle(cornerRadius: 25)
                         .fill(.background)
-                     //   .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 5)
                         .shadow(color: Color.theme.searchShadow, radius: 8, x: 0, y: 4)
                         .padding(.top, -progress * 190)
                         .padding(.bottom, -progress * 65)
