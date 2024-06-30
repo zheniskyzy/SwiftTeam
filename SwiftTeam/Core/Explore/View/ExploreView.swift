@@ -28,7 +28,8 @@ struct ExploreView: View {
         }
         .scrollTargetBehavior(CustomScrollTargetBehaviour())
         .scrollIndicators(.hidden)
-        .background(.gray.opacity(0.15))
+//        .background(.gray.opacity(0.15))
+        .background(Color.theme.bgTabColor)
         .contentMargins(.top, 190, for: .scrollIndicators)
     }
     
@@ -75,7 +76,8 @@ struct ExploreView: View {
                 .background {
                     RoundedRectangle(cornerRadius: 25 - (progress * 25)) // u can use without progress RoundedRectangle(cornerRadius: 25)
                         .fill(.background)
-                        .shadow(color: .gray.opacity(0.25), radius: 5, x: 0, y: 5)
+                     //   .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 5)
+                        .shadow(color: Color.theme.searchShadow, radius: 8, x: 0, y: 4)
                         .padding(.top, -progress * 190)
                         .padding(.bottom, -progress * 65)
                         .padding(.horizontal, -progress * 15)
@@ -103,6 +105,7 @@ struct ExploreView: View {
                                         } else {
                                             Capsule()
                                                 .fill(.background)
+                                                .stroke(Color.gray.opacity(0.2), lineWidth: 0.5)
                                         }
                                     }
                             }

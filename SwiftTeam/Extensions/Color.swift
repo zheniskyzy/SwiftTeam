@@ -20,4 +20,6 @@ struct ColorTheme {
     let buttonsPostCard = Color("buttonsPostCard")
     let xmark = Color("xmark")
     
+    let searchShadow = Color("searchShadow")
+    
 }

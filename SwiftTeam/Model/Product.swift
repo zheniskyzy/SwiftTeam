@@ -5,6 +5,7 @@
 //  Created by Benji Loya on 28.06.2024.
 //
 
+/*
 import Foundation
 
 struct ProductArray: Codable {
@@ -54,3 +55,5 @@ struct ProductRow: Identifiable {
     let title: String
     let products: [Product]
 }
+
+*/

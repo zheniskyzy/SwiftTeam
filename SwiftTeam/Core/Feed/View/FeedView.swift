@@ -12,12 +12,10 @@ import SwiftfulUI
 struct FeedView: View {
     @Environment(\.router) var router
     
-    @State private var heroProduct: Product? = nil
-    @State private var currentUser: User? = nil
-    @State private var productRows: [ProductRow] = []
+  //  @State private var heroProduct: Product? = nil
+  //  @State private var currentUser: User? = nil
+  //  @State private var productRows: [ProductRow] = []
     
-    @State private var filters = FilterModel.mockArray
-    @State private var selectedFilter: FilterModel? = nil
     @State private var fullHeaderSize: CGSize = .zero
     @State private var scrollViewOffset: CGFloat = 0
     
@@ -136,6 +134,7 @@ struct FeedView: View {
         )
     }
     
+    /*
     //MARK: - heroCell
     private func heroCell(product: Product) -> some View {
         FeedHeroCell(
@@ -158,7 +157,7 @@ struct FeedView: View {
           //  NetflixMovieDetailsView(product: product)
         }
     }
-    
+    */
 }
 
 #Preview {
