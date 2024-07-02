@@ -9,8 +9,21 @@ import SwiftUI
 
 struct ActivityView: View {
     var body: some View {
-        Text("Activity")
-            .font(.title.bold())
+        CustomRefreshView(showsIndicator: false) {
+            ScrollView(.vertical) {
+                HStack {
+                    Text("Activity")
+                        .font(.title.bold())
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 15)
+            }
+            .scrollIndicators(.hidden)
+        } onRefresh: {
+            // MARK: Your Action
+        }
+        
+        
     }
 }
 

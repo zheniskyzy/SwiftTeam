@@ -7,28 +7,85 @@
 
 import SwiftUI
 import Firebase
+import SwiftfulRouting
 
 struct CurrentUserProfileView: View {
+    @Environment(\.router) var router
     /// User Log Status
     @AppStorage("log_Status") private var logStatus: Bool = false
     var body: some View {
-        VStack(spacing: 50) {
-            Text("Profile")
-                .font(.title.bold())
-                .padding(.bottom, 30)
-            
-            
-            Button("LogOut") {
-                try? Auth.auth().signOut()
-                logStatus = false
+        CustomRefreshView(showsIndicator: false) {
+            VStack(spacing: 50) {
+                HStack {
+                    Text("Profile")
+                        .font(.title.bold())
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 15)
+                
+                
+                Button("LogOut") {
+                    try? Auth.auth().signOut()
+                    logStatus = false
+                }
+                
             }
-            
+            .scrollIndicators(.hidden)
+        } onRefresh: {
+            // MARK: Your Action
         }
+        
+       
     }
+    
+    // MARK: - Header
+    @ViewBuilder
+    func HeaderView()->some View{
+        VStack(spacing: 0) {
+            HStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("IOS Developer ll")
+                        .font(.system(size: 12, weight: .light, design: .default))
+                        .foregroundStyle(.primary.opacity(0.5))
+                    
+                    Text("benjiloya")
+                        .font(.system(size: 23, weight: .semibold, design: .default))
+                        .onTapGesture {
+                            router.showScreen(.push) { _ in
+                                // action view
+                            }
+                        }
+                }
+                
+                Spacer(minLength: 0)
+                
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .foregroundStyle(.gray.opacity(0.5))
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(20)
+                    .onTapGesture {
+                        // show full image
+                    }
+            }
+            .padding(.horizontal, 15)
+            
+            Divider()
+                .offset(y: 10)
+        }
+        
+        .padding(.top,safeArea().top)
+        .padding(.bottom, 10)
+        .background {
+            Color.theme.bgTabColor
+        }
+        .padding(.bottom, 20)
+    }
+    
 }
 
 #Preview {
-    CurrentUserProfileView()
+    RouterView { _ in
+        CurrentUserProfileView()
+    }
 }
-
-// DubaiLove_2022

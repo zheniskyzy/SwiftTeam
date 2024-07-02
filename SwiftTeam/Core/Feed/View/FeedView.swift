@@ -9,86 +9,103 @@ import SwiftUI
 import SwiftfulRouting
 import SwiftfulUI
 
+// MARK: Swipe Direction
+enum SwipeDirection{
+    case up
+    case down
+    case none
+}
+
 struct FeedView: View {
     @Environment(\.router) var router
-    
-    @State private var fullHeaderSize: CGSize = .zero
-    @State private var scrollViewOffset: CGFloat = 0
-    
+    /// MARK: View Properties
+    @State var headerHeight: CGFloat = 0
+    @State var headerOffset: CGFloat = 0
+    @State var lastHeaderOffset: CGFloat = 0
+    @State var direction: SwipeDirection = .none
+    /// MARK: Shift Offset Means The Value From Where It Shifted From Up/Down
+    @State var shiftOffset: CGFloat = 0
     var body: some View {
-        ZStack(alignment: .top) {
-            Color.theme.bgTabColor.ignoresSafeArea()
+      
+        ScrollView(.vertical, showsIndicators: false) {
             
-            scrollViewLayer
-            
-            fullHeaderWithFilters
-            
-        }
-        .task {
-         //   await getData()
-        }
-        .toolbar(.hidden, for: .navigationBar)
-    }
-    
-    //MARK: - full Header
-    private var fullHeaderWithFilters: some View {
-        VStack(spacing: 0) {
-         header
-            
-            if scrollViewOffset > -20 {
-                
-                RoundedRectangle(cornerRadius: 5)
-                    .frame(height: 50)
-                    .padding(.horizontal, 10)
-                
-                
-                
-                    .padding(.top, 16)
-                    .transition(.move(edge: .top).combined(with: .opacity))
-            }
-        }
-        .padding(.bottom, 8)
-        .background(
-            ZStack {
-                if scrollViewOffset < -70 {
-                    Rectangle()
-                        .fill(Color.clear)
-                        .background {
-                            TransparentBlurView(removeAllFilters: true)
-                                .blur(radius: 9, opaque: true)
-                                .background(Color.theme.primaryText.opacity(0.05))
+            DummyFeedView()
+                .padding(.top,headerHeight)
+                .offsetY { previous, current in
+                    // MARK: Moving Header Based On Direction Scroll
+                    if previous > current{
+                        // MARK: Up
+                        // print("Up")
+                        if direction != .up && current < 0{
+                            shiftOffset = current - headerOffset
+                            direction = .up
+                            lastHeaderOffset = headerOffset
                         }
-                        .ignoresSafeArea()
+                        
+                        let offset = current < 0 ? (current - shiftOffset) : 0
+                        // MARK: Checking If It Does Not Goes Over Over Header Height
+                        headerOffset = (-offset < headerHeight ? (offset < 0 ? offset : 0) : -headerHeight)
+                    }else{
+                        // MARK: Down
+                        // print("Down")
+                        if direction != .down{
+                            shiftOffset = current
+                            direction = .down
+                            lastHeaderOffset = headerOffset
+                        }
+                        
+                        let offset = lastHeaderOffset + (current - shiftOffset)
+                        headerOffset = (offset > 0 ? 0 : offset)
+                    }
                 }
-            }
-        )
-        .animation(.smooth, value: scrollViewOffset)
-        .readingFrame { frame in
-            if fullHeaderSize == .zero {
-                fullHeaderSize = frame.size
-            }
+            
         }
-    }
-    
-    //MARK: - Header
-    private var header: some View {
-        HStack(alignment: .center) {
-            VStack(alignment: .leading, spacing: 3) {
-                Text("IOS Developer ll")
-                    .font(.system(size: 12, weight: .light, design: .default))
-                    .foregroundStyle(.primary.opacity(0.5))
-                
-                Text("benjiloya")
-                    .font(.system(size: 23, weight: .semibold, design: .default))
-                    .onTapGesture {
-                        router.showScreen(.push) { _ in
-                            // action view
+        .coordinateSpace(name: "SCROLL")
+        .overlay(alignment: .top) {
+            HeaderView()
+                .anchorPreference(key: HeaderBoundsKey.self, value: .bounds){$0}
+                .overlayPreferenceValue(HeaderBoundsKey.self) { value in
+                    GeometryReader{proxy in
+                        if let anchor = value{
+                            Color.clear
+                                .onAppear {
+                                    // MARK: Retreiving Rect Using Proxy
+                                    headerHeight = proxy[anchor].height
+                                }
                         }
                     }
-            }
-            
-            Spacer(minLength: 0)
-            
+                }
+                .offset(y: -headerOffset < headerHeight ? headerOffset : (headerOffset < 0 ? headerOffset : 0))
+        }
+        // MARK: Due To Safe Area
+        .ignoresSafeArea(.all, edges: .top)
+        
+       
+        
+        
+    }
+    
+    // MARK: - Header
+    @ViewBuilder
+    func HeaderView()->some View{
+        VStack(spacing: 0) {
+            HStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("IOS Developer ll")
+                        .font(.system(size: 12, weight: .light, design: .default))
+                        .foregroundStyle(.primary.opacity(0.5))
+                    
+                    Text("benjiloya")
+                        .font(.system(size: 23, weight: .semibold, design: .default))
+                        .onTapGesture {
+                            router.showScreen(.push) { _ in
+                                // action view
+                            }
+                        }
+                }
+                
+                Spacer(minLength: 0)
+                
                 Image(systemName: "person.circle.fill")
                     .resizable()
                     .foregroundStyle(.gray.opacity(0.5))
@@ -97,61 +114,47 @@ struct FeedView: View {
                     .onTapGesture {
                         // show full image
                     }
+            }
+            .padding(.horizontal, 15)
+            
+            Divider()
+                .offset(y: 10)
         }
-        .padding(.horizontal, 15)
+        
+        .padding(.top,safeArea().top)
+        .padding(.bottom, 10)
+        .background {
+            Color.theme.bgTabColor
+        }
+        .padding(.bottom, 20)
     }
     
-    //MARK: - scrollView Layer
-    private var scrollViewLayer: some View {
-        ScrollViewWithOnScrollChanged(
-            .vertical,
-            showsIndicators: false,
-            content: {
-                VStack(spacing: 8) {
-                    Rectangle()
-                        .opacity(0)
-                        .frame(height: fullHeaderSize.height)
+    // MARK: - Dummy Feed View
+    @ViewBuilder
+    func DummyFeedView()->some View{
+        VStack(spacing: 30){
+            ForEach(0..<20, id: \.self) { _ in
+                HStack(alignment: .top, spacing: 15) {
+                    Circle()
+                        .frame(width: 55, height: 55)
                     
-//                    if let heroProduct {
-//                        heroCell(product: heroProduct)
-//                    }
-                    
-//                    Text("\(scrollViewOffset)")
-//                        .foregroundStyle(.red)
-                    
-                 //   categoryRows
+                    VStack(alignment: .leading, spacing: 6, content: {
+                        RoundedRectangle(cornerRadius: 4)
+                            .frame(width: 140, height: 8)
+                        
+                        RoundedRectangle(cornerRadius: 4)
+                            .frame( height: 8)
+                        
+                        RoundedRectangle(cornerRadius: 4)
+                            .frame(width: 80, height: 80)
+                    })
                 }
-            },
-            onScrollChanged: { offset in
-                scrollViewOffset = min(0, offset.y)
+                .foregroundStyle(.gray.opacity(0.25))
+                .padding(.horizontal, 10)
             }
-        )
-    }
-    
-    /*
-    //MARK: - heroCell
-    private func heroCell(product: Product) -> some View {
-        FeedHeroCell(
-            imageName: product.firstImage,
-            isNetflixFilm: true,
-            title: product.title,
-            categories: [product.category.capitalized, product.brand],
-            onBackgroundPressed: {
-                onProductPressed(product: product)
-            },
-            onPlayPressed: {
-                onProductPressed(product: product)
-            }
-        )
-        .padding(24)
-    }
-    
-    private func onProductPressed(product: Product) {
-        router.showScreen(.sheet) { _ in
-          //  NetflixMovieDetailsView(product: product)
         }
+        .shimmer(.init(tint: .gray.opacity(0.25), highlight: .primary.opacity(0.5), blur: 25))
     }
-    */
 }
 
 #Preview {

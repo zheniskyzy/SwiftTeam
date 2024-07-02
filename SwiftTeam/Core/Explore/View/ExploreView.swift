@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftfulRouting
 
 struct ExploreView: View {
+    @Environment(\.router) var router
     // View Properties
     @State private var searchText: String = ""
     @FocusState private var isSearching: Bool
@@ -19,7 +21,6 @@ struct ExploreView: View {
         ScrollView(.vertical) {
             LazyVStack(spacing: 15) {
                 DummyMessagesView()
-                    .shimmer(.init(tint: .gray.opacity(0.25), highlight: .primary.opacity(0.5), blur: 25))
             }
             .safeAreaPadding(15)
             .safeAreaInset(edge: .top, spacing: 0) {
@@ -148,6 +149,7 @@ struct ExploreView: View {
             .foregroundStyle(.gray.opacity(0.25))
             .padding(.horizontal, 10)
         }
+        .shimmer(.init(tint: .gray.opacity(0.25), highlight: .primary.opacity(0.5), blur: 25))
     }
 }
 
@@ -164,5 +166,7 @@ struct CustomScrollTargetBehaviour: ScrollTargetBehavior {
 }
 
 #Preview {
-    ExploreView()
+    RouterView { _ in
+        ExploreView()
+    }
 }

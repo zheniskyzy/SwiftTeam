@@ -27,13 +27,6 @@ struct ContentView: View {
                     }
             } else {
                 Group {
-//                    if viewModel.userSession == nil {
-//                        HomeOnBoard()
-//                    } else {
-                   //    TabBarView()
-                     //       .accentColor(.primary)
-//                    }
-                    
                     if logStatus {
                         TabBarView()
                             .accentColor(.primary)
