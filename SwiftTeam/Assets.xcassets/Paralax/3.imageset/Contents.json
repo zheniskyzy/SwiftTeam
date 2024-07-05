@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "169486-apple_masvook_pro-kompyuter_imac-operacionnaya_sistema-yabloko-atmosfera-1920x1080.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
