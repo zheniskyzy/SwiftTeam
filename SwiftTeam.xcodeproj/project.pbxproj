@@ -120,11 +120,59 @@
 		E42DFC732C370A650040590E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E42DFC6F2C35C7510040590E /* TaskCard.swift */,
 				E42DFC712C35C8450040590E /* CategoryCard.swift */,
 				E42DFC7E2C3723310040590E /* News.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E42DFC822C386C5D0040590E /* New */ = {
+			isa = PBXGroup;
+			children = (
+				E42DFC762C371FF40040590E /* NewScreen.swift */,
+			);
+			path = New;
+			sourceTree = "<group>";
+		};
+		E42DFC832C386C670040590E /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				E42DFC872C386C850040590E /* Components */,
+				E42DFC842C386C6F0040590E /* Model */,
+				E42DFC862C386C800040590E /* View */,
+				E42DFC852C386C750040590E /* ViewModel */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		E42DFC842C386C6F0040590E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E42DFC6F2C35C7510040590E /* TaskCard.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E42DFC852C386C750040590E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E42DFC862C386C800040590E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E42DFC782C3720070040590E /* TaskScreen.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E42DFC872C386C850040590E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		E44E4BB92C2E885300DE3056 = {
@@ -303,8 +351,8 @@
 			children = (
 				E44E4BF12C2E8F7900DE3056 /* FeedView.swift */,
 				E42DFC742C3712AB0040590E /* SecondScreen.swift */,
-				E42DFC762C371FF40040590E /* NewScreen.swift */,
-				E42DFC782C3720070040590E /* TaskScreen.swift */,
+				E42DFC822C386C5D0040590E /* New */,
+				E42DFC832C386C670040590E /* Task */,
 				E42DFC7A2C3720140040590E /* ChatScreen.swift */,
 				E42DFC7C2C3720250040590E /* JobScreen.swift */,
 			);

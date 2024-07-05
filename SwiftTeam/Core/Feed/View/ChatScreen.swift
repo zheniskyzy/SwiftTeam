@@ -47,8 +47,9 @@ struct ChatScreen: View {
         VStack(spacing: 0) {
             HStack(alignment: .center) {
                 
-                    Image(systemName: "chevron.backward.circle")
-                        .font(.system(size: 26))
+                Image(systemName: "arrow.left.circle")
+                    .font(.system(size: 26))
+                    .fontWeight(.light)
                         .foregroundStyle(.primary.opacity(0.7))
                         .onTapGesture {
                             router.dismissScreen()

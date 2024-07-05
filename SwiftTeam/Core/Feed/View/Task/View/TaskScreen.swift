@@ -13,22 +13,15 @@ struct TaskScreen: View {
     var selectedCard: CategoryCard
     
     // Sample State Cards...
-    @State var cards: [TaskCard] = [
-        TaskCard(cardColor: Color.blue, date: "Monday 8th November", title: "Neurobics for your \nmind."),
-        TaskCard(cardColor: Color.purple, date: "Tuesday 9th November", title: "Brush up on hygine."),
-        TaskCard(cardColor: Color.green, date: "Wednesday 10th November", title: "Don't skip breakfast."),
-        TaskCard(cardColor: Color.pink, date: "Thursday 11th November", title: "Brush up on hygine."),
-        TaskCard(cardColor: Color.teal, date: "Friday 12th November", title: "Neurobics for your \nmind."),
-    ]
+    @State private var cards: [TaskCard] = sampleTaskcards
     // Detail Hero Page..
-    @State var showDetailPage: Bool = false
-    @State var currentCard: TaskCard?
+    @State private var showDetailPage: Bool = false
+    @State private var currentCard: TaskCard?
     // For Hero Animation
     // Using Namespace...
-    @Namespace var animation
+    @Namespace private var animation
     // showing Detail content a bit later...
-    @State var showDetailContent: Bool = false
-    
+    @State private var showDetailContent: Bool = false
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -45,9 +38,7 @@ struct TaskScreen: View {
                     let trailingSpaceofEachCards: CGFloat = 20
                     
                     ZStack{
-                     
                         ForEach(cards){card in
-                            
                             InfiniteStackedCardView(cards: $cards, card: card,trailingCardsToShown: trailingCardsToShown,trailingSpaceofEachCards: trailingSpaceofEachCards,animation: animation,showDetailPage: $showDetailPage)
                             // Setting On tap...
                                 .onTapGesture {
@@ -92,8 +83,9 @@ struct TaskScreen: View {
         VStack(spacing: 0) {
             HStack(alignment: .center) {
                 
-                    Image(systemName: "chevron.backward.circle")
+                    Image(systemName: "arrow.left.circle")
                         .font(.system(size: 26))
+                        .fontWeight(.light)
                         .foregroundStyle(.primary.opacity(0.7))
                         .onTapGesture {
                             router.dismissScreen()
@@ -108,16 +100,13 @@ struct TaskScreen: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 15)
-           
-//            Divider()
-//                .offset(y: 10)
         }
     }
     
+    // MARK: - Detail
     @ViewBuilder
     func DetailPage()->some View{
         ZStack{
-            
             if let currentCard = currentCard,showDetailPage {
                 
                 Rectangle()
@@ -187,7 +176,7 @@ struct TaskScreen: View {
     }
 }
 
-
+//MARK: - Infinite Stacked CardView
 struct InfiniteStackedCardView: View {
     
     @Binding var cards: [TaskCard]
@@ -224,7 +213,7 @@ struct InfiniteStackedCardView: View {
             Label {
                 Image(systemName: "arrow.right")
             } icon: {
-                Text("Read More")
+                Text("Let's start")
             }
             .font(.system(size: 15, weight: .semibold))
             // Moving To right without Spacers...
@@ -261,7 +250,6 @@ struct InfiniteStackedCardView: View {
         .contentShape(Rectangle())
         .offset(x: offset)
         .gesture(
-        
             DragGesture()
                 .updating($isDragging, body: { _, out, _ in
                     out = true
@@ -280,19 +268,16 @@ struct InfiniteStackedCardView: View {
                     offset = translation
                 })
                 .onEnded({ value in
-                    
                     // Checking if card is swiped more than width...
                     let width = UIScreen.main.bounds.width
-                    let cardPassed = -offset > (width / 1.6)
+                    let cardPassed = -offset > (width / 3.1)
                     
                     withAnimation(.easeInOut(duration: 0.2)){
-                        
                         if cardPassed{
                             offset = -width
                             removeAndPutBack()
                         }
                         else{
-                         
                             offset = .zero
                         }
                     }
@@ -330,9 +315,7 @@ struct InfiniteStackedCardView: View {
     }
     
     func getPadding()->CGFloat{
-        
         // retreiving padding for each card(At trailing...)
-        
         let maxPadding = trailingCardsToShown * trailingSpaceofEachCards
         
         let cardPadding = getIndex() * trailingSpaceofEachCards
@@ -350,6 +333,7 @@ struct InfiniteStackedCardView: View {
         
         return CGFloat(index)
     }
+    
 }
 
 

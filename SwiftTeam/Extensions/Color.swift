@@ -22,4 +22,10 @@ struct ColorTheme {
     
     let searchShadow = Color("searchShadow")
     
+    //Task Card Colors
+    let taskOrange = Color("taskOrange")
+    let taskRed = Color("taskRed")
+    let taskPurple = Color("taskPurple")
+    let taskBlue = Color("taskBlue")
+    let taskGreen = Color("taskGreen")
 }
