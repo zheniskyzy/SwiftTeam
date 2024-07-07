@@ -1,8 +1,8 @@
 //
-//  LoginView.swift
+//  Login.swift
 //  SwiftTeam
 //
-//  Created by Benji Loya on 07.07.2024.
+//  Created by Benji Loya on 30.06.2024.
 //
 
 import SwiftUI
@@ -19,6 +19,7 @@ struct LoginView: View {
     @State private var errorMessage: String = ""
     @State private var showAlert: Bool = false
     @State private var isLoading: Bool = false
+    @State private var nonce: String?
     /// User Log Status
     @AppStorage("log_Status") private var logStatus: Bool = false
     
@@ -87,7 +88,6 @@ struct LoginView: View {
                                 .padding(1)
                                 .background(Color.white)
                                 .clipShape(Circle())
-                                
                             
                             Text("Sign in with Google")
                         }
@@ -97,7 +97,7 @@ struct LoginView: View {
                 }
                 .frame(height: 45)
                 .clipShape(.capsule)
-                
+                .padding(.top, 10)
                 
                 // Apple
                 Button(action: {
@@ -135,7 +135,7 @@ struct LoginView: View {
                 }, label: {
                     Text("Other Sign in Options")
                         .foregroundStyle(Color.primary)
-                        .frame(height: 45)
+                        .frame(height: 40)
                         .frame(maxWidth: .infinity)
                         .contentShape(.capsule)
                         .background {
@@ -175,7 +175,6 @@ struct LoginView: View {
         showAlert.toggle()
         isLoading = false
     }
-    
 }
 
 #Preview {

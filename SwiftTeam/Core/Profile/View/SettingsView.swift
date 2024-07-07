@@ -15,15 +15,18 @@ struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @AppStorage("log_Status") private var logStatus: Bool = false
     
+    @State private var showDeleteView: Bool = false
+    
     var body: some View {
         VStack {
             
             HeaderView()
             
             ScrollView(.vertical) {
-                VStack {
+                VStack(alignment: .leading, spacing: 15) {
+                   
                     
-                    Button("Log out") {
+                    Button(action: {
                         Task {
                             do {
                                 try viewModel.signOut()
@@ -33,27 +36,53 @@ struct SettingsView: View {
                                 print(error)
                             }
                         }
-                    }
-                    .padding(.vertical, 40)
+                    }, label: {
+                        Text("Log out")
+                    })
                     
                     Button(role: .destructive) {
-                        Task {
-                            do {
-                                try await viewModel.deleteAccount()
-                                logStatus = false
-                                router.dismissScreen()
-                            } catch {
-                                print(error)
-                            }
-                        }
+                        showDeleteView = true
+//                        Task {
+//                            do {
+//                                try await viewModel.deleteAccount()
+//                                logStatus = false
+//                                router.dismissScreen()
+//                            } catch {
+//                                print(error)
+//                            }
+//                        }
                     } label: {
                         Text("Delete account")
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding([.horizontal, .top])
             }
+            .blur(radius: showDeleteView ? 2 : 0)
+            .disabled(showDeleteView)
             .scrollIndicators(.hidden)
             .navigationBarBackButtonHidden()
         }
+        .overlay {
+            if showDeleteView {
+                DeleteAccountView(onSubmit: {
+                    Task {
+                        do {
+                            try await viewModel.deleteAccount()
+                            logStatus = false
+                            router.dismissScreen()
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    showDeleteView = false
+                }, onClose: {
+                    showDeleteView = false
+                })
+                .transition(.move(edge: .leading))
+            }
+        }
+        .animation(.snappy, value: showDeleteView)
         .background {
             Color.theme.bgTabColor
                 .ignoresSafeArea()
@@ -78,7 +107,7 @@ struct SettingsView: View {
                 Spacer()
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("settings")
+                    Text("Settings")
                         .font(.system(size: 23, weight: .semibold, design: .default))
                 }
             }
