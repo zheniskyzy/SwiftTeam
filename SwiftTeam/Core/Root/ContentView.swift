@@ -31,7 +31,7 @@ struct ContentView: View {
                         TabBarView()
                             .accentColor(.primary)
                     } else {
-                        Login()
+                        LoginView()
                     }
                         
                 }

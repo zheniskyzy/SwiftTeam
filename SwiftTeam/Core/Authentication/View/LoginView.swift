@@ -10,7 +10,7 @@ import GoogleSignIn
 import GoogleSignInSwift
 import AuthenticationServices
 
-struct Login: View {
+struct LoginView: View {
     
     @StateObject private var viewModel = AuthenticationViewModel()
     
@@ -178,5 +178,5 @@ struct Login: View {
 }
 
 #Preview {
-    Login()
+    LoginView()
 }
