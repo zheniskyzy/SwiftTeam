@@ -30,6 +30,9 @@ struct TabBarView: View {
         return .init(tab: tab)
     }
     
+  //  @State private var showSignInView: Bool = false
+    
+    
     @State private var tabState: Visibility = .visible
     
     var body: some View {

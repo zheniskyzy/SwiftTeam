@@ -5,6 +5,7 @@
 //  Created by Benji Loya on 28.06.2024.
 //
 
+/*
 import SwiftUI
 
 struct User: Identifiable, Codable {
@@ -40,3 +41,5 @@ extension User: Hashable {
         return lhs.id == rhs.id
     }
 }
+
+*/

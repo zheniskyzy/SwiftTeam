@@ -67,7 +67,7 @@ struct UserInitialsView: View {
     }
 }
 
-
+/*
 struct CircularProfileImageView: View {
     var user: User?
     let size: ProfileImageSize
@@ -91,3 +91,4 @@ struct CircularProfileImageView_Previews: PreviewProvider {
         CircularProfileImageView(user: User(fullname: "John Doe", email: "john.doe@example.com", username: "johndoe", id: "123"), size: .small)
     }
 }
+*/
