@@ -5,6 +5,7 @@
 //  Created by Benji Loya on 28.06.2024.
 //
 
+/*
 import SwiftUI
 
 struct Post: Identifiable, Codable, Hashable {
@@ -34,3 +35,4 @@ struct MediaFile: Codable, Hashable {
         case video
     }
 }
+*/

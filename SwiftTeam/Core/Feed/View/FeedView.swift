@@ -64,7 +64,7 @@ struct FeedView: View {
                 }
             
             SpecialView()
-             
+            
             CategoriesView()
                 .offset(y: -50)
             
@@ -138,7 +138,6 @@ struct FeedView: View {
         .padding(.bottom, 20)
     }
     
-   
     // MARK: - Special
     @ViewBuilder
     func SpecialView() -> some View {

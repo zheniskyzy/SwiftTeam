@@ -11,23 +11,13 @@ import SwiftfulRouting
 
 struct CurrentUserProfileView: View {
     @Environment(\.router) var router
-    /// User Log Status
-    @AppStorage("log_Status") private var logStatus: Bool = false
+    
     var body: some View {
         CustomRefreshView(showsIndicator: false) {
             VStack(spacing: 50) {
-                HStack {
-                    Text("Profile")
-                        .font(.title.bold())
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 15)
+                HeaderView()
                 
-                
-                Button("LogOut") {
-                    try? Auth.auth().signOut()
-                    logStatus = false
-                }
+               
                 
             }
             .scrollIndicators(.hidden)
@@ -52,7 +42,7 @@ struct CurrentUserProfileView: View {
                         .font(.system(size: 23, weight: .semibold, design: .default))
                         .onTapGesture {
                             router.showScreen(.push) { _ in
-                                // action view
+                                SettingsView()
                             }
                         }
                 }
@@ -74,7 +64,7 @@ struct CurrentUserProfileView: View {
                 .offset(y: 10)
         }
         
-        .padding(.top,safeArea().top)
+      //  .padding(.top,safeArea().top)
         .padding(.bottom, 10)
         .background {
             Color.theme.bgTabColor
