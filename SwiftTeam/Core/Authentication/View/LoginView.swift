@@ -10,7 +10,7 @@ import GoogleSignIn
 import GoogleSignInSwift
 import AuthenticationServices
 
-struct Login: View {
+struct LoginView: View {
     
     @StateObject private var viewModel = AuthenticationViewModel()
     
@@ -129,6 +129,7 @@ struct Login: View {
                 .frame(height: 45)
                 .clipShape(.capsule)
                 
+                /*
                 /// Other Sign In Options
                 Button(action: {
                     
@@ -143,6 +144,7 @@ struct Login: View {
                                 .stroke(Color.primary, lineWidth: 0.5)
                         }
                 })
+                 */
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(20)
@@ -178,5 +180,5 @@ struct Login: View {
 }
 
 #Preview {
-    Login()
+    LoginView()
 }

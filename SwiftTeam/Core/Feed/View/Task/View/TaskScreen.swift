@@ -65,7 +65,13 @@ struct TaskScreen: View {
             // Moving view to Top without using Spacers...
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .overlay(
-                DetailPage()
+            //    DetailPage()
+                TaskDetailView(
+                    currentCard: currentCard,
+                    showDetailPage: $showDetailPage,
+                    showDetailContent: $showDetailContent,
+                    animation: animation
+                )
             )
             
         }
@@ -103,6 +109,7 @@ struct TaskScreen: View {
         }
     }
     
+    /*
     // MARK: - Detail
     @ViewBuilder
     func DetailPage()->some View{
@@ -167,6 +174,7 @@ struct TaskScreen: View {
             }
         }
     }
+    */
     
 }
 
@@ -176,6 +184,7 @@ struct TaskScreen: View {
     }
 }
 
+/*
 //MARK: - Infinite Stacked CardView
 struct InfiniteStackedCardView: View {
     
@@ -335,6 +344,6 @@ struct InfiniteStackedCardView: View {
     }
     
 }
+*/
 
 
-let content = "Humans have long used cognitive enhancement methods to expand the proficiency and range of the various mental activities that they engage in, including writing to store and retrieve information, and computers that allow them to perform myriad activities that are now commonplace in the internet age. Neuroenhancement describes the use of neuroscience-based techniques for enhancing cognitive function by acting directly on the human brain and nervous system, altering its properties to increase performance. Cognitive neuroscience has now reached the point where it may begin to put theory derived from years of experimentation into practice. This special issue includes 16 articles that employ or examine a variety of neuroenhancement methods currently being developed to increase cognition in healthy people and in patients with neurological or psychiatric illness.This includes transcranial electromagnetic stimulation methods, such as transcranial direct current stimulation (tDCS) and transcranial magnetic stimulation (TMS), along with deep brain stimulation, neurofeedback, behavioral training techniques, and these and other techniques in conjunction with neuroimaging."
