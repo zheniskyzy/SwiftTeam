@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskDetailView: View {
     
-    var currentCard: TaskCard?
+    var currentCard: TaskLevel?
     @Binding var showDetailPage: Bool
     @Binding var showDetailContent: Bool
     var animation: Namespace.ID
@@ -42,12 +42,12 @@ struct TaskDetailView: View {
                     // Moving view to left Without Any Spacers..
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text(currentCard.date)
+                    Text(currentCard.title)
                         .font(.callout)
                         .fontWeight(.semibold)
                         .padding(.top)
                     
-                    Text(currentCard.title)
+                    Text(currentCard.subtitle)
                         .font(.title.bold())
                     
                     ScrollView(.vertical, showsIndicators: false) {
@@ -84,7 +84,7 @@ struct TaskDetailView: View {
     @Namespace var animation
 
     return TaskDetailView(
-        currentCard: sampleTaskcards.first!,
+        currentCard: sampleTaskLevels.first!,
         showDetailPage: $showDetailPage,
         showDetailContent: $showDetailContent,
         animation: animation

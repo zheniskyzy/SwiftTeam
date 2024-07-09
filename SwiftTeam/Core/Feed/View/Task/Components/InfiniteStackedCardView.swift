@@ -9,8 +9,8 @@ import SwiftUI
 
 struct InfiniteStackedCardView: View {
     
-    @Binding var cards: [TaskCard]
-    var card: TaskCard
+    @Binding var cards: [TaskLevel]
+    var card: TaskLevel
     var trailingCardsToShown: CGFloat
     var trailingSpaceofEachCards: CGFloat
     
@@ -27,14 +27,14 @@ struct InfiniteStackedCardView: View {
     var body: some View{
         
         VStack(alignment: .leading, spacing: 15) {
-            
-            Text(card.date)
-                .font(.caption)
-                .fontWeight(.semibold)
-                
+               
             Text(card.title)
                 .font(.title.bold())
                 .padding(.top)
+            
+            Text(card.subtitle)
+                .font(.caption)
+                .fontWeight(.semibold)
             
             Spacer()
             
@@ -167,13 +167,13 @@ struct InfiniteStackedCardView: View {
 }
 
 #Preview {
-    @State var sampleCards: [TaskCard] = sampleTaskcards
+    @State var sampleCards: [TaskLevel] = sampleTaskLevels
     @State var showDetailPage: Bool = false
     @Namespace var animation
 
     return InfiniteStackedCardView(
         cards: $sampleCards,
-        card: sampleTaskcards.first!,
+        card: sampleTaskLevels.first!,
         trailingCardsToShown: 2,
         trailingSpaceofEachCards: 20,
         animation: animation,

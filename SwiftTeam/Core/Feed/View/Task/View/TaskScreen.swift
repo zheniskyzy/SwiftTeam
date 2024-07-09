@@ -13,10 +13,10 @@ struct TaskScreen: View {
     var selectedCard: CategoryCard
     
     // Sample State Cards...
-    @State private var cards: [TaskCard] = sampleTaskcards
+    @State private var cards: [TaskLevel] = sampleTaskLevels
     // Detail Hero Page..
     @State private var showDetailPage: Bool = false
-    @State private var currentCard: TaskCard?
+    @State private var currentCard: TaskLevel?
     // For Hero Animation
     // Using Namespace...
     @Namespace private var animation
@@ -28,8 +28,8 @@ struct TaskScreen: View {
             HeaderView()
             
             VStack(alignment: .leading) {
-                
-                GeometryReader{proxy in
+                /// Cards
+                GeometryReader { proxy in
                     
                     let size = proxy.size
                     
@@ -38,7 +38,7 @@ struct TaskScreen: View {
                     let trailingSpaceofEachCards: CGFloat = 20
                     
                     ZStack{
-                        ForEach(cards){card in
+                        ForEach(cards){ card in
                             InfiniteStackedCardView(cards: $cards, card: card,trailingCardsToShown: trailingCardsToShown,trailingSpaceofEachCards: trailingSpaceofEachCards,animation: animation,showDetailPage: $showDetailPage)
                             // Setting On tap...
                                 .onTapGesture {
@@ -51,16 +51,30 @@ struct TaskScreen: View {
                     }
                     .padding(.leading,10)
                     .padding(.trailing,(trailingCardsToShown * trailingSpaceofEachCards))
-                    .frame(height: size.height / 1.8)
+                    .frame(height: size.height / 1.3)
                 // Your Wish...
                 // Make Cards size as 1.6 of th the height...
                 
                 // Since Geometry Reader push away all View to leading..
                 // Making it Center...
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                //    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 }
                 
+                /// Description
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("Somethitng else...")
+                        .font(.largeTitle.bold())
+                    
+                    Text("Somethitng else...")
+                    Text("Somethitng else...")
+                    Text("Somethitng else...")
+                    Text("Somethitng else...")
+                    
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
             }
+            .padding(.top, 30)
             .padding()
             // Moving view to Top without using Spacers...
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
